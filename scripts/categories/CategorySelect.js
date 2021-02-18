@@ -5,6 +5,7 @@ const contentTarget = document.querySelector(".filter__category")
 
 // let categories = []
 
+// first error fixed- added const to categories inside CategorySelect
 export const CategorySelect = () => {
   getCategories()
   .then(()=>{
@@ -27,6 +28,7 @@ contentTarget.innerHTML= catHTML
 
 eventHub.addEventListener("change", changeEvent => {
   if (changeEvent.target.id === "categorySelect") {
+    // debugger
     const categoryCustomEvent = new CustomEvent("categorySelected", {
       detail: {
         selectedCategory: changeEvent.target.value
