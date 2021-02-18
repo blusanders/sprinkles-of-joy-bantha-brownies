@@ -3,21 +3,26 @@ import { getCategories, useCategories } from "./CategoryProvider.js"
 const eventHub = document.querySelector("#container")
 const contentTarget = document.querySelector(".filter__category")
 
-let categories = []
+// let categories = []
 
 export const CategorySelect = () => {
   getCategories()
-  categories = useCategories()
-  render()
+  .then(()=>{
+      const allCats = useCategories()
+      render(allCats)
+})
 }
 
-const render = () => {
-  contentTarget.innerHtml = `
+const render = (allCats) => {
+let catHTML = `
       <select class="dropdown" id="categorySelect">
           <option value="0">All baked goods...</option>
-          ${categories.map(category => `<option value="${category.id}">${category.text}</option>`).join("")}
+          ${allCats.map(category => `<option value="${category.id}">${category.name}</option>`).join("")}
       </select>
   `
+// debugger
+contentTarget.innerHTML= catHTML
+
 }
 
 eventHub.addEventListener("change", changeEvent => {
@@ -30,3 +35,4 @@ eventHub.addEventListener("change", changeEvent => {
     eventHub.dispatchEvent(categoryCustomEvent)
   }
 })
+
