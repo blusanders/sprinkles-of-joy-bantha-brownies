@@ -3,25 +3,29 @@ import { getCategories, useCategories } from "./CategoryProvider.js"
 const eventHub = document.querySelector("#container")
 const contentTarget = document.querySelector(".filter__category")
 
-let categories = []
+// let categories = []
 
+// first error fixed- added const to categories inside CategorySelect
 export const CategorySelect = () => {
   getCategories()
-  categories = useCategories()
-  render()
+  .then(()=> {
+    const allCats = useCategories()
+  render(allCats)
+})
 }
 
-const render = () => {
-  contentTarget.innerHtml = `
+const render = (cat) => {
+  contentTarget.innerHTML = `
       <select class="dropdown" id="categorySelect">
           <option value="0">All baked goods...</option>
-          ${categories.map(category => `<option value="${category.id}">${category.text}</option>`).join("")}
+          ${cat.map(category => `<option value="${category.id}">${category.name}</option>`).join("")}
       </select>
   `
 }
 
 eventHub.addEventListener("change", changeEvent => {
   if (changeEvent.target.id === "categorySelect") {
+    // debugger
     const categoryCustomEvent = new CustomEvent("categorySelected", {
       detail: {
         selectedCategory: changeEvent.target.value
