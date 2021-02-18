@@ -8,19 +8,22 @@ const contentTarget = document.querySelector(".filter__category")
 // first error fixed- added const to categories inside CategorySelect
 export const CategorySelect = () => {
   getCategories()
-  .then(()=> {
-    const allCats = useCategories()
-  render(allCats)
+  .then(()=>{
+      const allCats = useCategories()
+      render(allCats)
 })
 }
 
-const render = (cat) => {
-  contentTarget.innerHTML = `
+const render = (allCats) => {
+let catHTML = `
       <select class="dropdown" id="categorySelect">
           <option value="0">All baked goods...</option>
-          ${cat.map(category => `<option value="${category.id}">${category.name}</option>`).join("")}
+          ${allCats.map(category => `<option value="${category.id}">${category.name}</option>`).join("")}
       </select>
   `
+// debugger
+contentTarget.innerHTML= catHTML
+
 }
 
 eventHub.addEventListener("change", changeEvent => {
@@ -34,3 +37,4 @@ eventHub.addEventListener("change", changeEvent => {
     eventHub.dispatchEvent(categoryCustomEvent)
   }
 })
+

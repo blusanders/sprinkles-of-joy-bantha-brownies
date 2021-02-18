@@ -8,13 +8,19 @@ const contentTarget = document.querySelector(".menu__items")
 // let bakeryProducts = []
 // let bakeryCategories = []
 
-export const ProductList = () => {
-  // debugger
+export const ProductList = (categoryId) => {
   getProducts()
-    .then(getCategories())
-    .then(() => {
-       const bakeryProducts = useProducts()
-       const bakeryCategories = useCategories()
+  .then(getCategories)
+  .then(() => {
+      let bakeryProducts = useProducts()
+
+      //if dropdowm isn't all then filter bakeryproducts array to just what's selected
+      if(categoryId!=0){
+          let filteredBakeryProducts = bakeryProducts.filter(prod => prod.categoryId === parseInt(categoryId))
+          bakeryProducts=filteredBakeryProducts
+      }
+
+      const bakeryCategories = useCategories()
       render(bakeryProducts, bakeryCategories)
     })
 }
@@ -26,3 +32,8 @@ const render = (bakeryProducts, bakeryCategories) => {
     return Product(product, productCategory)
   }).join("")
 }
+
+eventHub.addEventListener("categorySelected", event => {
+    // console.log(event.detail.selectedCategory)
+    ProductList(event.detail.selectedCategory)
+})

@@ -11,4 +11,4 @@ import { ProductList } from "./products/ProductList.js"
 LoginForm()
 CustomerNav()
 CategorySelect()
-ProductList()
+ProductList(0)

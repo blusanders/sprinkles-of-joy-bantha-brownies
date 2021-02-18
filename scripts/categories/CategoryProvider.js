@@ -10,7 +10,9 @@ export const getCategories = () => {
   return fetch(`${bakeryAPI.baseURL}/categories`)
     .then(response => response.json())
     .then(categoriesArray => {
-      console.log(categoriesArray)
+      // console.log(categoriesArray);
+      // debugger
       categories = categoriesArray
     })
 }
+
