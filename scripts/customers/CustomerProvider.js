@@ -17,6 +17,12 @@ export const getCustomer = (id) => {
 }
 
 export const customerLogin = (email, password) => {
+  
+  let fetchURL = `${bakeryAPI.baseURL}/customers?email=${email}&password=${password}`
+//  debugger
+  console.log(fetchURL);
+
+  //if fetch returns data then return the first (only) element of the object otherwise return false 
   return fetch(`${bakeryAPI.baseURL}/customers?email=${email}&password=${password}`)
     .then(res => res.json())
     .then(user => user.length ? user[0] : false)

@@ -3,6 +3,7 @@ import { getCustomer } from "../customers/CustomerProvider.js"
 
 const eventHub = document.querySelector("#container")
 const userNav = document.querySelector(".userNav")
+const logoutContainer = document.querySelector(".logoutContainer")
 
 export const CustomerNav = () => {
   if (authHelper.isUserLoggedIn()) {
@@ -24,8 +25,14 @@ const render = (customer) => {
   `
 }
 
+export const LogoutNav = () => {
+  logoutContainer.innerHTML=`<li><a id=logoutNavLink href="#">Logout</a></li>`
+}
+
 eventHub.addEventListener("userLoggedIn", event => {
   CustomerNav()
+  LogoutNav()
+
 })
 
 eventHub.addEventListener("click", event => {
