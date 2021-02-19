@@ -39,13 +39,11 @@ const render = () => {
   `
 
 
-//place order button disabled if no products in cart
-  // debugger
-  if (productsInCart.length===0){
-    document.getElementById("placeOrder").disabled = true
-  }else{
-    document.getElementById("placeOrder").disabled = false
-  }
+    if (productsInCart.length===0){
+      document.getElementById("placeOrder").disabled = true
+    }else{
+      document.getElementById("placeOrder").disabled = false
+    }
 
 
 }
