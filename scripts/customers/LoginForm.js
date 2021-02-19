@@ -31,24 +31,32 @@ const render = () => {
 }
 
 eventHub.addEventListener("click", e => {
+// debugger
   if (e.target.id === "customerLogin") {
+
     e.preventDefault()
     const loginEmail = document.getElementById("login-email").value
     const loginPassword = document.getElementById("login-password").value
     // debugger
     customerLogin(loginEmail, loginPassword)
       .then(user => {
-        if (user) {
+        //if login correct then user returned in .then and then make userform it empty
+          //otherwise alert as invalid
+          if (user) {
           contentTarget.innerHTML = ""
 
+          //set user id in session
           authHelper.storeUserInSessionStorage(user.id)
 
+          //dispatch user logged in
           const customEvent = new CustomEvent("userLoggedIn")
           eventHub.dispatchEvent(customEvent)
+
         } else {
           alert("Invalid email and/or password. Please try again.")
         }
       })
+
   } else if (e.target.id === "link__register") {
     contentTarget.innerHTML = ""
 

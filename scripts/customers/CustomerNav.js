@@ -31,8 +31,6 @@ export const LogoutNav = () => {
 
 eventHub.addEventListener("userLoggedIn", event => {
   CustomerNav()
-  LogoutNav()
-
 })
 
 eventHub.addEventListener("click", event => {
