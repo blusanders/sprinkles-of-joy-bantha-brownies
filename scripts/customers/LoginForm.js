@@ -31,7 +31,7 @@ const render = () => {
 }
 
 eventHub.addEventListener("click", e => {
-debugger
+// debugger
   if (e.target.id === "customerLogin") {
 
     e.preventDefault()
