@@ -1,7 +1,7 @@
 import { getProducts, useProducts } from "./ProductProvider.js"
 import { getCategories, useCategories } from "../categories/CategoryProvider.js"
 import { Product } from "./Product.js"
-
+import { authHelper } from "../auth/authHelper.js"
 const eventHub = document.querySelector("#container")
 const contentTarget = document.querySelector(".menu__items")
 
@@ -31,6 +31,14 @@ const render = (bakeryProducts, bakeryCategories) => {
 
     return Product(product, productCategory)
   }).join("")
+  const addToCartButtons = document.getElementsByClassName('addProduct')
+  if (!authHelper.isUserLoggedIn()){
+    for(const addToCartButton of addToCartButtons){
+      addToCartButton.style.display = 'none'}
+  }else{
+    for(const addToCartButton of addToCartButtons){
+      addToCartButton.style.display = 'block'}
+  } 
 }
 
 eventHub.addEventListener("categorySelected", event => {

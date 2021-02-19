@@ -46,7 +46,12 @@ const render = () => {
   }else{
     document.getElementById("placeOrder").disabled = false
   }
-
+  if (!authHelper.isUserLoggedIn()){
+    
+    userCart.style.display = 'none'
+  }else{
+    userCart.style.display = 'block'
+  } 
 
 }
 

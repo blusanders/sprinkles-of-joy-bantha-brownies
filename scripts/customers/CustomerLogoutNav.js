@@ -1,5 +1,6 @@
 import { authHelper } from "../auth/authHelper.js"
 import { getCustomer } from "../customers/CustomerProvider.js"
+import { ProductList } from "../products/ProductList.js"
 import { LoginForm } from "./LoginForm.js"
 
 const eventHub = document.querySelector("#container")
@@ -22,6 +23,7 @@ export const LogoutNav = () => {
 
 eventHub.addEventListener("userLoggedIn", event => {
     LogoutNav()
+    ProductList(0)
 })
 
 eventHub.addEventListener("click", event => {
