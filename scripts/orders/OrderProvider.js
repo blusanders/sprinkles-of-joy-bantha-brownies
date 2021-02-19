@@ -39,6 +39,5 @@ export const saveOrder = (order, productsInOrder) => {
 
 const dispatchStateChangeEvent = () => {
   const ordersStateChangedEvent = new CustomEvent("ordersStateChanged")
-
   eventHub.dispatchEvent(ordersStateChangedEvent)
 }

@@ -37,6 +37,17 @@ const render = () => {
     </div>
     </div>
   `
+
+
+//place order button disabled if no products in cart
+  // debugger
+  if (productsInCart.length===0){
+    document.getElementById("placeOrder").disabled = true
+  }else{
+    document.getElementById("placeOrder").disabled = false
+  }
+
+
 }
 
 eventHub.addEventListener("showCustomerCart", e => OpenCart())
@@ -68,5 +79,8 @@ eventHub.addEventListener("click", clickEvent => {
 
         return saveOrder(newOrder, productsInCart)
       })
+
+      productsInCart = []
+      OpenCart()
   }
 })
