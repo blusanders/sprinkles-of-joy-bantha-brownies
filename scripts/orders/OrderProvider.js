@@ -8,6 +8,7 @@ let orders = []
 export const useOrders = () => orders.slice()
 
 export const getOrders = () => {
+  console.log(`${bakeryAPI.baseURL}/orders?_expand=status`);
   return fetch(`${bakeryAPI.baseURL}/orders?_expand=status`)
     .then(response => response.json())
     .then(response => {
@@ -37,6 +38,14 @@ export const saveOrder = (order, productsInOrder) => {
     .then(dispatchStateChangeEvent)
 }
 
+export const deleteOrder = (orderId) => {
+  console.log("DeleteOrder: " + orderId)
+  return fetch('http://localhost:8088/orders/'+orderId, {
+    method: "DELETE"
+  })
+    .then(dispatchStateChangeEvent())
+}
+    
 const dispatchStateChangeEvent = () => {
   const ordersStateChangedEvent = new CustomEvent("ordersStateChanged")
   eventHub.dispatchEvent(ordersStateChangedEvent)

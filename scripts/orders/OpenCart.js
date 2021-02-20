@@ -78,6 +78,7 @@ eventHub.addEventListener("click", clickEvent => {
         return saveOrder(newOrder, productsInCart)
       })
 
+      //After save order reset car and re render cart
       productsInCart = []
       OpenCart()
   }
