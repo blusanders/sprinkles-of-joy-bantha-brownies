@@ -5,7 +5,10 @@ let orderProducts = []
 export const useOrderProducts = () => orderProducts.slice()
 
 export const getOrderProducts = () => {
-  return fetch(`${bakeryAPI.baseURL}/orderproducts`)
+
+  let fetchURL = `${bakeryAPI.baseURL}/orderProducts?_expand=product`
+
+  return fetch(fetchURL)
     .then(response => response.json())
     .then(apiData => {
       orderProducts = apiData

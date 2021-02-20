@@ -1,26 +1,34 @@
 import { authHelper } from "../auth/authHelper.js"
 import { getCustomer } from "../customers/CustomerProvider.js"
 import { Order } from "./Order.js"
+import { getOrderProducts, useOrderProducts } from "./OrderProductProvider.js"
 import { getOrders, useOrders, deleteOrder } from "./OrderProvider.js"
 
 const eventHub = document.querySelector("#container")
 const contentContainer = document.querySelector(".userOrders")
 
-let customerOrders = []
+// let customerOrders = []
 
 export const OrderList = () => {
   if (authHelper.isUserLoggedIn()) {
 
     getOrders()
+      .then(getOrderProducts)
       .then(() => {
-        customerOrders = useOrders()
-        render()
+        let customerOrders = useOrders()
+        let customerOrderProducts = useOrderProducts()
+        render(customerOrders,customerOrderProducts)
       })
   }
 }
 
-const render = () => {
-  const ordersHtmlRepresentation = customerOrders.map(order => Order(order)).join("")
+const render = (customerOrders,customerOrderProducts) => {
+
+    // const customerOrdersArray = customerOrders.map(order => customerOrders.customerId === ).join("")
+    const ordersHtmlRepresentation = customerOrders.map(order => {
+      const productsHtmlRepresentation = customerOrderProducts.filter(custOrdProd => custOrdProd.orderId === order.id )
+      return Order(order,productsHtmlRepresentation)
+  }).join("")
 
   contentContainer.innerHTML = `
   <div id="orders__modal" class="modal--parent">
@@ -28,6 +36,7 @@ const render = () => {
         <h3>All Customer Orders</h3>
         <div>
         <h5>Ordered on</h5>
+        <button id="modal--close">Close</button>
         ${ordersHtmlRepresentation}
         </div>
         <button id="modal--close">Close</button>
@@ -47,6 +56,10 @@ eventHub.addEventListener("ordersStateChanged", () => {
 eventHub.addEventListener("click", event => {
   if (event.target.id === "modal--close") {
     closeModal()
+  }
+  if (event.target.id.startsWith("showOrderDetails--")){
+    console.log("show details"+event.target.id.split("--")[1]);
+    showOrderDetails(event.target.id.split("--")[1])
   }
 })
 

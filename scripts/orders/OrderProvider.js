@@ -1,3 +1,4 @@
+import { authHelper } from "../auth/authHelper.js"
 import { bakeryAPI } from "../Settings.js"
 import { saveOrderProducts } from "./OrderProductProvider.js"
 
@@ -8,8 +9,12 @@ let orders = []
 export const useOrders = () => orders.slice()
 
 export const getOrders = () => {
-  console.log(`${bakeryAPI.baseURL}/orders?_expand=status`);
-  return fetch(`${bakeryAPI.baseURL}/orders?_expand=status`)
+
+  //get orders for current logged in user with session customer ID
+  let fetchURL =`${bakeryAPI.baseURL}/orders?_expand=status&customerId=${authHelper.getCurrentUserId()}`
+  // console.log(fetchURL);
+
+  return fetch(fetchURL)
     .then(response => response.json())
     .then(response => {
       orders = response
@@ -50,3 +55,4 @@ const dispatchStateChangeEvent = () => {
   const ordersStateChangedEvent = new CustomEvent("ordersStateChanged")
   eventHub.dispatchEvent(ordersStateChangedEvent)
 }
+ 
