@@ -7,16 +7,15 @@ export const Order = (customerOrder, productsHtmlRepresentation) => {
   //if order status is ready for pickup then show delete button
   //else add a blank <p> for spacing
   if (customerOrder.status.id===1){
-    buttonHTML += "<button id=deleteOrder--"+customerOrder.id+">X</button>"
+    buttonHTML += "<div class=orderButtonDiv><button id=deleteOrder--"+customerOrder.id+">X</button></div>"
   }else{
-    buttonHTML += "<p></p>"
+    buttonHTML += "<div class=orderButtonDiv></div>"
   }
 
   renderHTML+=`
   <div border=1 class="order">
-  <p>${new Date(customerOrder.timestamp).toLocaleString('en-US')}
+  <div class=orderDetailsDiv>${new Date(customerOrder.timestamp).toLocaleString('en-US')}
   <a href=# id="orderShowDetails--${customerOrder.id}">show details</a>
-  <br>1213
   <div id=showOrderDetailsContainer--${customerOrder.id}>`
   
   //list all product names for order
@@ -25,15 +24,14 @@ export const Order = (customerOrder, productsHtmlRepresentation) => {
   });
 
   renderHTML+=prodHTML
-  // debugger
+  debugger
   renderHTML+=`
-  </p></div>
-  <p>${customerOrder.status.label}</p>
+  </div></div>
+  <div class=orderStatusDiv><p>${customerOrder.status.label}</div>
   `
 
   renderHTML += buttonHTML
   renderHTML += "</div>"
-  console.log(renderHTML);
   return renderHTML
 
 }
