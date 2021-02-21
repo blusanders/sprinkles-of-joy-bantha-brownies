@@ -17,7 +17,7 @@ export const Order = (customerOrder, productsHtmlRepresentation) => {
   <div border=1 class="order">
   <div class=orderDetailsDiv>${new Date(customerOrder.timestamp).toLocaleString('en-US')}
   <a href=# id="orderShowDetails--${customerOrder.id}">show details</a>
-  <div class=productDetailsDiv id=showOrderDetailsContainer--${customerOrder.id}>`
+  <div style="display:none;" class=productDetailsDiv id=showOrderDetailsContainer--${customerOrder.id}>`
   
   //list all product names for order
   productsHtmlRepresentation.forEach(element => {
@@ -25,7 +25,7 @@ export const Order = (customerOrder, productsHtmlRepresentation) => {
   });
 
   renderHTML+=prodHTML
-  // debugger
+  
   renderHTML+=`
   </div>
   </div>

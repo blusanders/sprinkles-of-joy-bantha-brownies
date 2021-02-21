@@ -23,11 +23,9 @@ export const OrderList = () => {
 }
 
 const render = (customerOrders,customerOrderProducts) => {
-// debugger
-    // const customerOrdersArray = customerOrders.map(order => customerOrders.customerId === ).join("")
-    const ordersHtmlRepresentation = customerOrders.map(order => {
+
+  const ordersHtmlRepresentation = customerOrders.map(order => {
     const productsHtmlRepresentation = customerOrderProducts.filter(custOrdProd => custOrdProd.orderId === order.id )
-    // debugger
     return Order(order,productsHtmlRepresentation)
   }).join("")
 
@@ -58,9 +56,18 @@ eventHub.addEventListener("click", event => {
   if (event.target.id === "modal--close") {
     closeModal()
   }
-  if (event.target.id.startsWith("showOrderDetails--")){
-    console.log("show details"+event.target.id.split("--")[1]);
-    showOrderDetails(event.target.id.split("--")[1])
+
+  //if show details then unhide details container
+  if (event.target.id.startsWith("orderShowDetails--")){
+    let linkVar = document.getElementById("orderShowDetails--"+event.target.id.split("--")[1]);
+  
+    if (linkVar.text==="show details"){
+      linkVar.text = "hide details"
+      document.getElementById("showOrderDetailsContainer--"+event.target.id.split("--")[1]).style.display = '';
+    }else{
+      linkVar.text = "show details"
+      document.getElementById("showOrderDetailsContainer--"+event.target.id.split("--")[1]).style.display = 'none';
+    } 
   }
 })
 
