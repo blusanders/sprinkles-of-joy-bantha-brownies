@@ -62,6 +62,7 @@ eventHub.addEventListener("addToCart", event => {
 })
 
 eventHub.addEventListener("click", clickEvent => {
+  // debugger
   if (clickEvent.target.id === "placeOrder" && productsInCart.length !== 0) {
     const currentCustomerId = parseInt(authHelper.getCurrentUserId())
     getStatuses()
@@ -69,12 +70,13 @@ eventHub.addEventListener("click", clickEvent => {
         const allStatuses = useStatuses()
         const initialOrderStatus = allStatuses.find(status => status.label.toLowerCase() === "Scheduled".toLowerCase())
 
-        const newOrder = {
+        // debugger
+          const newOrder = {
           "customerId": currentCustomerId,
           "statusId": initialOrderStatus.id,
           "timestamp": Date.now()
         }
-
+// debugger
         return saveOrder(newOrder, productsInCart)
       })
 

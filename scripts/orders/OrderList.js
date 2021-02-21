@@ -23,11 +23,12 @@ export const OrderList = () => {
 }
 
 const render = (customerOrders,customerOrderProducts) => {
-
+// debugger
     // const customerOrdersArray = customerOrders.map(order => customerOrders.customerId === ).join("")
     const ordersHtmlRepresentation = customerOrders.map(order => {
-      const productsHtmlRepresentation = customerOrderProducts.filter(custOrdProd => custOrdProd.orderId === order.id )
-      return Order(order,productsHtmlRepresentation)
+    const productsHtmlRepresentation = customerOrderProducts.filter(custOrdProd => custOrdProd.orderId === order.id )
+    // debugger
+    return Order(order,productsHtmlRepresentation)
   }).join("")
 
   contentContainer.innerHTML = `
