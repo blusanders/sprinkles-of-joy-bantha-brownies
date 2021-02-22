@@ -1,3 +1,4 @@
+import { authHelper } from "../auth/authHelper.js"
 import { bakeryAPI } from "../Settings.js"
 import { saveOrderProducts } from "./OrderProductProvider.js"
 
@@ -8,7 +9,12 @@ let orders = []
 export const useOrders = () => orders.slice()
 
 export const getOrders = () => {
-  return fetch(`${bakeryAPI.baseURL}/orders?_expand=status`)
+
+  //get orders for current logged in user with session customer ID
+  let fetchURL =`${bakeryAPI.baseURL}/orders?_expand=status&customerId=${authHelper.getCurrentUserId()}`
+  // console.log(fetchURL);
+
+  return fetch(fetchURL)
     .then(response => response.json())
     .then(response => {
       orders = response
@@ -39,7 +45,17 @@ export const saveOrder = (order, productsInOrder) => {
     .then(dispatchStateChangeEvent)
 }
 
+export const deleteOrder = (orderId) => {
+  console.log("DeleteOrder: " + orderId)
+  return fetch('http://localhost:8088/orders/'+orderId, {
+    method: "DELETE"
+  })
+  .then(() => getOrders())
+  .then(dispatchStateChangeEvent())
+}
+    
 const dispatchStateChangeEvent = () => {
   const ordersStateChangedEvent = new CustomEvent("ordersStateChanged")
   eventHub.dispatchEvent(ordersStateChangedEvent)
 }
+

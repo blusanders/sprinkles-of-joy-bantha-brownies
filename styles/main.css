@@ -3,6 +3,9 @@
 @import './customer.css';
 @import './nav.css';
 
+*{
+	/* border: 1px solid black; */
+}
 
 /*Typography
 --------------------------------------------------------------*/
@@ -34,4 +37,21 @@ h1,h2,h3,h4,h5,h6 {
 
 .menuSection {
 	flex-basis: 62%;
+}
+
+.orderDetailsDiv{
+	width:350px;
+}
+
+.productDetailsDiv{
+	font-size: 10px;
+}
+
+.orderStatusDiv{
+	width:150px;
+}
+
+.orderButtonDiv{
+	width:50px;
+	text-align: right;
 }
