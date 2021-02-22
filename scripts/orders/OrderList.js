@@ -58,6 +58,12 @@ eventHub.addEventListener("ordersStateChanged", () => {
   OrderList()
 })
 
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    closeModal()  }
+})
+
+
 eventHub.addEventListener("click", event => {
 
   if (event.target.id === "modal--close") {
