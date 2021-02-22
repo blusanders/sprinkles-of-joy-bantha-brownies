@@ -25,7 +25,9 @@ export const saveOrder = (order, productsInOrder) => {
   })
     .then(res => res.json())
     .then((createdOrder) => {
+      // debugger
       const orderProducts = productsInOrder.map(product => {
+
         return {
           "orderId": createdOrder.id,
           "productId": product.id

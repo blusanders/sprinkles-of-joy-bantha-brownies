@@ -46,7 +46,12 @@ const render = () => {
   }else{
     document.getElementById("placeOrder").disabled = false
   }
-
+  if (!authHelper.isUserLoggedIn()){
+    
+    userCart.style.display = 'none'
+  }else{
+    userCart.style.display = 'block'
+  } 
 
 }
 
@@ -78,9 +83,16 @@ eventHub.addEventListener("click", clickEvent => {
         }
 
         return saveOrder(newOrder, productsInCart)
+        .then(() => {
+          productsInCart = []
+          OpenCart()
+        })
       })
-
-      productsInCart = []
-      OpenCart()
+    
   }
 })
+
+// eventHub.addEventListener('orderStateChanged', event =>{
+//   productsInCart = []
+//   OpenCart()
+// })
