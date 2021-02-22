@@ -39,12 +39,19 @@ const render = () => {
   `
 
 
-    if (productsInCart.length===0){
-      document.getElementById("placeOrder").disabled = true
-    }else{
-      document.getElementById("placeOrder").disabled = false
-    }
-
+//place order button disabled if no products in cart
+  // debugger
+  if (productsInCart.length===0){
+    document.getElementById("placeOrder").disabled = true
+  }else{
+    document.getElementById("placeOrder").disabled = false
+  }
+  if (!authHelper.isUserLoggedIn()){
+    
+    userCart.style.display = 'none'
+  }else{
+    userCart.style.display = 'block'
+  } 
 
 }
 
@@ -79,10 +86,16 @@ eventHub.addEventListener("click", clickEvent => {
         }
         // console.log("4: " + productsInCart);
         return saveOrder(newOrder, productsInCart)
+        .then(() => {
+          productsInCart = []
+          OpenCart()
+        })
       })
-
-      //After save order reset car and re render cart
-      productsInCart = []
-      OpenCart()
+    
   }
 })
+
+// eventHub.addEventListener('orderStateChanged', event =>{
+//   productsInCart = []
+//   OpenCart()
+// })

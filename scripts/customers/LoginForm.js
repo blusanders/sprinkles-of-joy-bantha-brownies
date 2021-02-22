@@ -27,6 +27,7 @@ const render = () => {
         <button id="customerLogin">Login</button>
       </form>
     `
+    
   }
 }
 
