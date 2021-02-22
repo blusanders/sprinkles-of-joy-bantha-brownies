@@ -13,8 +13,9 @@ export const getOrderProducts = () => {
 }
 
 export const saveOrderProducts = (orderProductsArray) => {
+  // debugger
   const orderProductsPromiseArray = orderProductsArray.map(op => {
-    return fetch(`${bakeryAPI.baseURL}/orderproducts`, {
+    return fetch(`${bakeryAPI.baseURL}/orderProducts`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

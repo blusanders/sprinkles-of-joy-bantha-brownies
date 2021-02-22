@@ -33,5 +33,5 @@ eventHub.addEventListener("click", event => {
     userNav.innerHTML = ""
     LoginForm()
   }
-  })
+})
 
