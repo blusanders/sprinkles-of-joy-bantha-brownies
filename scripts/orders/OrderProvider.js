@@ -48,11 +48,12 @@ export const deleteOrder = (orderId) => {
   return fetch('http://localhost:8088/orders/'+orderId, {
     method: "DELETE"
   })
-    .then(dispatchStateChangeEvent())
+  .then(() => getOrders())
+  .then(dispatchStateChangeEvent())
 }
     
 const dispatchStateChangeEvent = () => {
   const ordersStateChangedEvent = new CustomEvent("ordersStateChanged")
   eventHub.dispatchEvent(ordersStateChangedEvent)
 }
- 
+

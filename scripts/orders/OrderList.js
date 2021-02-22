@@ -9,6 +9,7 @@ const contentContainer = document.querySelector(".userOrders")
 
 // let customerOrders = []
 
+//render list of all orders
 export const OrderList = () => {
   if (authHelper.isUserLoggedIn()) {
 
@@ -22,6 +23,9 @@ export const OrderList = () => {
   }
 }
 
+//render based on order array and orderProduct array
+//order product provider expanded to include product name
+//so we don't have to iterate again through products to get name
 const render = (customerOrders,customerOrderProducts) => {
 
   const ordersHtmlRepresentation = customerOrders.map(order => {
@@ -44,23 +48,28 @@ const render = (customerOrders,customerOrderProducts) => {
       `
 }
 
+//listen for the order history click from the nav
 eventHub.addEventListener("showPastOrders", () => {
   OrderList()
 })
 
+//refresh and display orders when order state changes. at this time, when a user orders. 
 eventHub.addEventListener("ordersStateChanged", () => {
   OrderList()
 })
 
 eventHub.addEventListener("click", event => {
+
   if (event.target.id === "modal--close") {
     closeModal()
   }
 
-  //if show details then unhide details container
+  //if show details link is clicked then render products in order and unhide container
   if (event.target.id.startsWith("orderShowDetails--")){
+    
     let linkVar = document.getElementById("orderShowDetails--"+event.target.id.split("--")[1]);
   
+    //swap the text in the anchor tag and show/hide the container
     if (linkVar.text==="show details"){
       linkVar.text = "hide details"
       document.getElementById("showOrderDetailsContainer--"+event.target.id.split("--")[1]).style.display = '';
@@ -75,6 +84,7 @@ eventHub.addEventListener("click", event => {
 eventHub.addEventListener("click", event => {
   if (event.target.id.startsWith("deleteOrder--")){
     deleteOrder(event.target.id.split("--")[1])
+    OrderList()
   }
 })
 
