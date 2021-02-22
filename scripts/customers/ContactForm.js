@@ -2,7 +2,7 @@
 const eventHub = document.querySelector("#container")
 const contentTarget = document.querySelector('.contactForm')
 
-
+// Listens for contact in navbar to be clicked, will display contact form 
 eventHub.addEventListener("click", event => {
     if (event.target.id==='contact') {
       ContactForm()
@@ -31,6 +31,8 @@ const renderContactForm = () => {
     </div>`
 }
 
+
+// Listens for send button on contact form to be clicked, posts the info to db and clears form
 eventHub.addEventListener("click", event => {
     if(event.target.id==='saveContactForm'){
         let nameId = document.querySelector('#name').value
@@ -55,27 +57,10 @@ eventHub.addEventListener("click", event => {
     }
 })
 
-// Handle browser-generated click event in component
-// eventHub.addEventListener("click", clickEvent => {
-//     if (clickEvent.target.id === "saveNote") {
-//         const dateId = document.querySelector("#date").value
-//         // const suspectId = document.querySelector("#suspect").value
-//         const noteId = document.querySelector("#note").value
-//         const criminalId = document.querySelector("#noteForm--criminal").value
-//         // Make a new object representation of a note
-//         const newNote = {
-//             date: dateId,
-//             criminalId: parseInt(criminalId),
-//             note: noteId,
-//         }
-
-//         // Change API state and application state
-//         saveNote(newNote)
-//     }
-// })
 
 
 
+//Function posts info from contact form to database
 export const saveContactForm = contact => {
     return fetch('http://localhost:8088/contacts', {
         method: "POST",
