@@ -5,6 +5,15 @@
   cursor: pointer;
   justify-content: space-around;
 }
+.userNav h3{
+  display: flex;
+  align-items: center;
+}
+.rewards{
+  height: 2.5em;
+  width: auto;
+  align-self: center;
+}
 
 .customerSection {
   border-right: 3px solid wheat;
