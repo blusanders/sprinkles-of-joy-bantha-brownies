@@ -45,7 +45,6 @@ eventHub.addEventListener("click", event => {
         customEvent = new CustomEvent("showNewReviewForm")
         break;
       case "pastOrders":
-        console.log("history");
         customEvent = new CustomEvent("showPastOrders")
         break;
     }
