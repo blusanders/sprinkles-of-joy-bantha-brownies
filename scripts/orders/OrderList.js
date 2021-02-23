@@ -29,8 +29,15 @@ export const OrderList = () => {
 const render = (customerOrders,customerOrderProducts) => {
 
   const ordersHtmlRepresentation = customerOrders.map(order => {
+    
     const productsHtmlRepresentation = customerOrderProducts.filter(custOrdProd => custOrdProd.orderId === order.id )
-    return Order(order,productsHtmlRepresentation)
+
+    //calculate total price for order
+    let totalPrice = 0
+    productsHtmlRepresentation.forEach(element => {
+      totalPrice += element.product.price
+    });
+    return Order(order,productsHtmlRepresentation,totalPrice)
   }).join("")
 
   contentContainer.innerHTML = `
