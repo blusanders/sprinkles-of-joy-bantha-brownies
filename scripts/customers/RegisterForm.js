@@ -52,3 +52,35 @@ eventHub.addEventListener("click", evt => {
     eventHub.dispatchEvent(customEvent)
   }
 })
+
+eventHub.addEventListener('click', clickEvent => {
+  if(clickEvent.target.id === "customerRegister"){
+    let custFirstName = document.querySelector('#register-firstName').value
+    let custLastName = document.querySelector('#register-lastName').value
+    let custEmail = document.querySelector('#register-email').value
+    let custPassword = document.querySelector('#register-password').value
+    let custRewards
+    if(document.querySelector('#register-rewards').checked){
+         custRewards = true
+      }else{
+        custRewards = false
+      }
+    const newCustomer = {
+      name: custFirstName +' '+ custLastName,
+      rewardsMember: custRewards,
+      email: custEmail,
+      password: custPassword
+    } 
+    RegisterCustomer(newCustomer) 
+  }
+})
+
+export const RegisterCustomer = (customer) => {
+  return fetch('http://localhost:8088/customers', {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify(customer)
+})
+}
