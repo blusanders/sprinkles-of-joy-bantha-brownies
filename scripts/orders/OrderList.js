@@ -96,7 +96,7 @@ eventHub.addEventListener("click", event => {
 eventHub.addEventListener("click", event => {
   if (event.target.id.startsWith("deleteOrder--")){
     deleteOrder(event.target.id.split("--")[1])
-    OrderList()
+    // OrderList()
   }
 })
 

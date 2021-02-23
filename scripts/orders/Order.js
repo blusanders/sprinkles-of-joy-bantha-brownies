@@ -15,8 +15,8 @@ export const Order = (customerOrder, productsHtmlRepresentation,totalPrice) => {
 
   renderHTML+=`
   <div border=1 class="order">
-  <div class=orderDetailsDiv>${new Date(customerOrder.timestamp).toLocaleString('en-US')} - $${totalPrice.toFixed(2)}
-  <a href=# id="orderShowDetails--${customerOrder.id}">show details</a>
+  <div class=orderDetailsDiv>${new Date(customerOrder.timestamp).toLocaleString('en-US')} Total: ${totalPrice.toFixed(2)}
+  <a href=# id="orderShowDetails--${customerOrder.id}"> show details</a>
   <div style="display:none;" class=productDetailsDiv id=showOrderDetailsContainer--${customerOrder.id}>`
   
   //list all product names for order
