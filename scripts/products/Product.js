@@ -17,10 +17,11 @@ export const Product = (product, category) => {
 <div>
     <button class="addProduct" id="addProduct--${product.id}">Add to Cart</button>
     <p>${product.description} [${category.name}]</p>
-</div>
+    <a href="#" id="reviewProduct--${product.id}--${product.name}">reviews</a>
+    </div>
+    <hr class=fancyHR>
 </section>
-  `
-  
+`
 }
 
 eventHub.addEventListener("click", evt => {
@@ -35,5 +36,18 @@ eventHub.addEventListener("click", evt => {
 
         eventHub.dispatchEvent(addProductEvent)
     }
-})
 
+    if (evt.target.id.startsWith("reviewProduct--")) {
+        
+        const [prefix, productId, productName] = evt.target.id.split("--")
+// debugger
+        let customEvent = new CustomEvent("showNewReviewForm", {
+            detail: {
+                productId:productId,
+                productName:productName
+            }
+        })
+
+        eventHub.dispatchEvent(customEvent)
+    }
+})
