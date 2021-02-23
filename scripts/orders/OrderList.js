@@ -29,8 +29,15 @@ export const OrderList = () => {
 const render = (customerOrders,customerOrderProducts) => {
 
   const ordersHtmlRepresentation = customerOrders.map(order => {
+    
     const productsHtmlRepresentation = customerOrderProducts.filter(custOrdProd => custOrdProd.orderId === order.id )
-    return Order(order,productsHtmlRepresentation)
+
+    //calculate total price for order
+    let totalPrice = 0
+    productsHtmlRepresentation.forEach(element => {
+      totalPrice += element.product.price
+    });
+    return Order(order,productsHtmlRepresentation,totalPrice)
   }).join("")
 
   contentContainer.innerHTML = `
@@ -39,7 +46,6 @@ const render = (customerOrders,customerOrderProducts) => {
         <h3>All Customer Orders</h3>
         <div>
         <h5>Ordered on</h5>
-        <button id="modal--close">Close</button>
         ${ordersHtmlRepresentation}
         </div>
         <button id="modal--close">Close</button>
@@ -90,7 +96,7 @@ eventHub.addEventListener("click", event => {
 eventHub.addEventListener("click", event => {
   if (event.target.id.startsWith("deleteOrder--")){
     deleteOrder(event.target.id.split("--")[1])
-    OrderList()
+    // OrderList()
   }
 })
 

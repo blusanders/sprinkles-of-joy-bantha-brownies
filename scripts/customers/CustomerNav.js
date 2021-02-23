@@ -19,7 +19,6 @@ const render = (customer) => {
     <h3>Welcome ${customer.name}!</h3>
     <ul class="userNav__links">
     <li class="userNav__link" id="userNav--showCart">My Cart</li>
-    <li class="userNav__link" id="userNav--newReview">New Review</li>
     <li class="userNav__link" id="userNav--pastOrders">Order History</li>
     </ul>
   `
@@ -41,11 +40,10 @@ eventHub.addEventListener("click", event => {
       case "showCart":
         customEvent = new CustomEvent("showCustomerCart")
         break;
-      case "newReview":
-        customEvent = new CustomEvent("showNewReviewForm")
-        break;
+      // case "newReview":
+      //   customEvent = new CustomEvent("showNewReviewForm")
+      //   break;
       case "pastOrders":
-        console.log("history");
         customEvent = new CustomEvent("showPastOrders")
         break;
     }

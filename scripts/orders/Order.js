@@ -1,4 +1,4 @@
-export const Order = (customerOrder, productsHtmlRepresentation) => {
+export const Order = (customerOrder, productsHtmlRepresentation,totalPrice) => {
 
   let renderHTML= ""
   let buttonHTML = ""
@@ -15,8 +15,8 @@ export const Order = (customerOrder, productsHtmlRepresentation) => {
 
   renderHTML+=`
   <div border=1 class="order">
-  <div class=orderDetailsDiv>${new Date(customerOrder.timestamp).toLocaleString('en-US')}
-  <a href=# id="orderShowDetails--${customerOrder.id}">show details</a>
+  <div class=orderDetailsDiv>${new Date(customerOrder.timestamp).toLocaleString('en-US')} Total: ${totalPrice.toFixed(2)}
+  <a href=# id="orderShowDetails--${customerOrder.id}"> show details</a>
   <div style="display:none;" class=productDetailsDiv id=showOrderDetailsContainer--${customerOrder.id}>`
   
   //list all product names for order

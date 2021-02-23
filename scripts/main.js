@@ -3,6 +3,7 @@ console.log("Welcome to Sprinkles of Joy!")
 import "./customers/RegisterForm.js"
 import "./orders/OpenCart.js"
 import "./orders/OrderList.js"
+import "./reviews/ReviewsList.js"
 import { LogoutNav } from "./customers/CustomerLogoutNav.js"
 import { CustomerNav } from "./customers/CustomerNav.js"
 import { CategorySelect } from "./categories/CategorySelect.js"
