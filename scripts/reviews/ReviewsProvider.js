@@ -2,6 +2,8 @@ import { authHelper } from "../auth/authHelper.js"
 import { bakeryAPI } from "../Settings.js"
 import { ReviewsList } from "./ReviewsList.js"
 
+const eventHub = document.querySelector("#container")
+
 let reviews = []
 
 export const useReviews = () => {
@@ -11,7 +13,7 @@ export const useReviews = () => {
 
 export const getReviews = (productId) => {
     
-    // let fetchURL = `${bakeryAPI.baseURL}/reviews?_expand=product&customerId=${authHelper.getCurrentUserId()}`
+    //get reviews per selected product
     let fetchURL = `${bakeryAPI.baseURL}/reviews?_expand=product&productId=${productId}`
     console.log(fetchURL);
     return fetch(fetchURL)
@@ -31,4 +33,22 @@ export const addReview = (reviewObj) => {
         },
         body: JSON.stringify(reviewObj)
     })
+    .then(dispatchStateChangeEvent)
+
 }
+
+export const deleteReview = reviewId => {
+    // debugger
+    return fetch('http://localhost:8088/reviews/'+reviewId, {
+        method: "DELETE"
+    })
+    .then(dispatchStateChangeEvent)
+}
+
+//dispatch custom event if add or delete reviews
+const dispatchStateChangeEvent = () => {
+    // debugger
+    const reviewsStateChangedEvent = new CustomEvent("reviewsStateChangedEvent")
+    eventHub.dispatchEvent(reviewsStateChangedEvent)
+}
+

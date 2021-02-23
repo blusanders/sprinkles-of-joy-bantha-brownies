@@ -39,7 +39,6 @@ const render = (customerOrders,customerOrderProducts) => {
         <h3>All Customer Orders</h3>
         <div>
         <h5>Ordered on</h5>
-        <button id="modal--close">Close</button>
         ${ordersHtmlRepresentation}
         </div>
         <button id="modal--close">Close</button>

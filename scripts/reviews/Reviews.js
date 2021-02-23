@@ -8,6 +8,7 @@ export const Reviews = (reviewArray) => {
     <div>
     ${reviewArray.text}
     </div>
+
     <div>`
 
     //write out stars. replace with star image
@@ -16,8 +17,7 @@ export const Reviews = (reviewArray) => {
     }
 
     if (reviewArray.customerId === authHelper.getCurrentUserId()){
-        // debugger
-        renderHTML+=`<img width=20 src="https://cdn3.iconfinder.com/data/icons/flat-actions-icons-9/792/Close_Icon_Dark-512.png"`
+        renderHTML+=`<img id=deleteReview--${reviewArray.id} width=20 src="https://cdn3.iconfinder.com/data/icons/flat-actions-icons-9/792/Close_Icon_Dark-512.png"`
     }
 
     renderHTML+=`

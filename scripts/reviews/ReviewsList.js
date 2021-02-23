@@ -1,5 +1,5 @@
 import { authHelper } from "../auth/authHelper.js"
-import { addReview, getReviews, useReviews} from "./ReviewsProvider.js"
+import { addReview, deleteReview, getReviews, useReviews} from "./ReviewsProvider.js"
 import { ReviewForm } from "./ReviewForm.js"
 import { Reviews } from "./Reviews.js"
 
@@ -15,7 +15,7 @@ export const ReviewsList = (productId,productName) => {
 }
 
 const render = (reviewsArray, productName, productId) => {
-// debugger
+
     let reviewsHTML =""
     
     reviewsHTML +=`
@@ -23,7 +23,7 @@ const render = (reviewsArray, productName, productId) => {
     <div class="modal--content">
     <h3>Rate - ${productName}
     </h3>
-    <div>`
+    <div class=reviewStars>`
 
     reviewsHTML += ReviewForm()
     
@@ -55,16 +55,29 @@ eventHub.addEventListener("showNewReviewForm", (event) => {
     ReviewsList(event.detail.productId,event.detail.productName )
 })
 
+
+//**********************
+//click events
+//**********************
+
 eventHub.addEventListener("click", event => {
-// debugger
+
+    //close modal click
     if (event.target.id === "modal--close") {
         closeModal()
     }
 
+    //add review click
     if (event.target.id === "reviewFormButton") {
     
-        let productNameForRerender = document.getElementById("reviewFormProductName").value
+        let reviewFormRating = document.getElementById("reviewFormRating").value
+        let reviewFormText = document.getElementById("reviewFormText").value
         let productIdForReview = document.getElementById("reviewFormProductId").value
+
+        if (parseInt(reviewFormRating)===0 || reviewFormText===""){
+            alert("Rating and review are required.")
+            return
+        }
 
         const newReview = {
             customerId: authHelper.getCurrentUserId(),
@@ -73,21 +86,33 @@ eventHub.addEventListener("click", event => {
             stars: parseInt(document.getElementById("reviewFormRating").value),
         }
 
-        //add review sending name and Id 
         addReview(newReview)
-        .then(ReviewsList(productIdForReview, productNameForRerender))
-
     }
 
+    //delete review click
+    //if delete then delete entry after confirmation
+    if (event.target.id.startsWith("deleteReview--")) {
+        if (confirm("Are you sure?")) {
+            deleteReview(event.target.id.split("--")[1])
+        }
+    }
 })
 
+//listen for review state change
+eventHub.addEventListener('reviewsStateChangedEvent', event => {
+    let productNameForRerender = document.getElementById("reviewFormProductName").value
+    let productIdForRerender = document.getElementById("reviewFormProductId").value
+    ReviewsList(productIdForRerender, productNameForRerender)
+})
 
-
+//close modal if user presses escape
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
         closeModal()  }
 })
 
+//close modal
 const closeModal = () => {
     reviewsContainer.innerHTML = ""
 }
+

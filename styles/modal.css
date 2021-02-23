@@ -25,3 +25,11 @@
   display: flex;
   justify-content: space-between;
 }
+
+label{
+  display: block;
+}
+
+fieldset{
+  padding:10px;
+}

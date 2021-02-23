@@ -4,8 +4,10 @@ export const ReviewForm = () => {
 
     renderHTML+=`
 
+    <fieldset>
+
     <div>
-    <label for="reviewFormRating">Rating:</label>
+    <label for="reviewFormRating">Product:</label>
     <select id="reviewFormRating">
     <option value=0>Select product star rating:</option>
     <option value=5>5 stars</option>
@@ -14,15 +16,20 @@ export const ReviewForm = () => {
     <option value=2>2 stars</option>
     <option value=1>1 stars</option>
     </select>
+    </div>
 
     <div class="validation reviewFormRatingValidation"></div>
 
-    <label align=center for="reviewFormText">Review:</label>
+    <div>
+    <label for="reviewFormText">Review:</label>
     <textarea cols=40 id="reviewFormText"></textarea>
-    <br><br>
+    </div>
+
+    <div>
     <input type="button" class="reviewFormButton" id="reviewFormButton" value="Add Review">
     </div>
-    <div><hr></div>
+
+    </fieldset>
     `
     return renderHTML
 
