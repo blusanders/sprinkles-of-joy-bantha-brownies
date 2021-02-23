@@ -56,19 +56,23 @@ const render = (customerOrders,customerOrderProducts) => {
 
 //listen for the order history click from the nav
 eventHub.addEventListener("showPastOrders", () => {
+// debugger
   OrderList()
 })
 
 //refresh and display orders when order state changes. at this time, when a user orders. 
 eventHub.addEventListener("ordersStateChanged", () => {
-  OrderList()
+  // OrderList()
 })
 
+
+//*******************
+//close modal
+//*******************
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') {
     closeModal()  }
 })
-
 
 eventHub.addEventListener("click", event => {
 
