@@ -19,7 +19,7 @@ const render = (customer) => {
   if(customer.rewardsMember === true){
      vip = `<img class="rewards" src="../images/rewardsBadge.png" alt="badge">`
   }else{
-     vip = ""
+     vip = `<br /><button id="rewardsSignUp--${customer.id}">Click to sign up for rewards!</button>`
   }
   userNav.innerHTML = `
     <h3>Welcome ${customer.name}! ${vip} </h3>
@@ -55,6 +55,19 @@ eventHub.addEventListener("click", event => {
         customEvent = new CustomEvent("showPastOrders")
         break;
     }
+    eventHub.dispatchEvent(customEvent)
+  }
+})
+
+
+eventHub.addEventListener('click', clickEvent => {
+  if(clickEvent.target.id.startsWith("rewardsSignUp")){
+    const [prefix, customerId] = clickEvent.target.id.split("--")
+    const customEvent = new CustomEvent('rewardsSignUp', {
+          detail: {
+            customerId: parseInt(customerId)
+          }
+    })
     eventHub.dispatchEvent(customEvent)
   }
 })
